@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 
 const GenreCard = ({ title, onClick, delay }: { title: string; onClick: () => void; delay: number }) => (
   <motion.div
@@ -51,9 +53,21 @@ const SelectNews = () => {
   ];
   const [selectedGenre, setSelectedGenre] = useState<string>("");
 
+  const GetData = async () => {
+    console.log("Getting data for:", selectedGenre);
+    try {
+      const response = await axios.post("http://127.0.0.1:3000/getLink", {
+        url: `https://www.thehindu.com/${selectedGenre}/feeder/default.rss`,
+      });
+      console.log("Response received:", response.data);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
+  };
+
   const handleGenreSelect = (genre: string) => {
     setSelectedGenre(genre);
-    
+
     // Custom toast component with confirmation buttons
     toast.custom(
       (t) => (
@@ -75,6 +89,7 @@ const SelectNews = () => {
                     className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
                     onClick={() => {
                       toast.dismiss(t.id);
+                      GetData();
                       navigate('/DownloadData');
                     }}
                   >
@@ -95,14 +110,10 @@ const SelectNews = () => {
       ),
       {
         duration: 5000,
-        position: 'top-right', // Change position to 'top-right'
+        position: 'top-right', // Position toast at the top-right
       }
-    );    
+    );
   };
-
-  useEffect(() => {
-    console.log("Selected Genre is:", selectedGenre);
-  }, [selectedGenre]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 flex items-center justify-center pb-24">
@@ -141,7 +152,7 @@ const SelectNews = () => {
             <GenreCard
               key={idx}
               title={genre}
-              delay={idx * 0.0}
+              delay={idx * 0.1}
               onClick={() => handleGenreSelect(genre)}
             />
           ))}

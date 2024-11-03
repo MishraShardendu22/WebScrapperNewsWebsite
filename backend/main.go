@@ -26,6 +26,9 @@ func main() {
 
 	app := fiber.New()
 
+	// set up cors
+	SetUpCORS(app)
+
 	TestRoutes(app)
 	GetLinkRoute(app)
 
@@ -110,6 +113,15 @@ func WebScrapeRoute(url string) error {
 		return err
 	}
 	return nil
+}
+
+func SetUpCORS(app *fiber.App) {
+	app.Use(func(c *fiber.Ctx) error {
+		c.Set("Access-Control-Allow-Origin", "*")
+		c.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+		c.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		return c.Next()
+	})
 }
 
 func HandleError(err error, c *fiber.Ctx) error {
