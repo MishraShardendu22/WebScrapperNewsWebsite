@@ -10,14 +10,27 @@ I created a web scraping website that scrapes a news website and returns live ne
 
 ## Tech Stack
 
-- **Backend**: <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg" alt="Go" height="40" width="80"/> Go
-- **Framework**: <img src="https://tse1.mm.bing.net/th?id=OIP.Vwna0ypKn1ac1HXlsYW-IwHaCx&pid=Api&P=0&w=300&h=300" alt="Fiber" height="40" width="80"/> Fiber
-- **Web Scraping**: <img src="https://tse4.mm.bing.net/th?id=OIP.6j1KmGsbcW28--qeX-KXJAHaDt&pid=Api&P=0&w=300&h=300" alt="Colly" height="40" width="80"/> Colly
+- **Backend**: ![Go](https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg) Go  
+  A statically typed, compiled programming language designed for simplicity and efficiency, ideal for building scalable web applications.
+
+- **Framework**: ![Fiber](https://tse1.mm.bing.net/th?id=OIP.Vwna0ypKn1ac1HXlsYW-IwHaCx&pid=Api&P=0&w=300&h=300) Fiber  
+  A fast and minimalist web framework for Go, which provides a simple API to create web applications and APIs with improved performance.
+
+- **Web Scraping**: ![Colly](https://tse4.mm.bing.net/th?id=OIP.6j1KmGsbcW28--qeX-KXJAHaDt&pid=Api&P=0&w=300&h=300) Colly  
+  A powerful web scraping framework for Go that allows you to crawl websites and extract data easily and efficiently.
+
 - **Frontend**: 
-  - <img src="https://tse3.mm.bing.net/th?id=OIP.2IYTCEBU784bBDw45iiHzwHaD4&pid=Api&P=0&h=180" alt="Shadcn" height="40" width="40"/> Shadcn 
-  - <img src="https://tse1.mm.bing.net/th?id=OIP.FQR3B8ppNjvaw4XFHiZyBAHaEK&pid=Api&P=0&w=300&h=300" alt="Tailwind CSS" height="40" width="40"/> Tailwind CSS
-  - <img src="https://www.framer.com/images/social/motion.png" alt="Framer Motion" height="40" width="40"/> Framer Motion 
-  - <img src="https://tse3.mm.bing.net/th?id=OIP.ni9fqitlb-cKQKy6evmb8wHaDt&pid=Api&P=0&w=300&h=300" alt="Daisy UI" height="40" width="40"/> Daisy UI
+  - ![Shadcn](https://tse3.mm.bing.net/th?id=OIP.2IYTCEBU784bBDw45iiHzwHaD4&pid=Api&P=0&h=180) Shadcn  
+    A UI component library designed for building beautiful and responsive user interfaces with ease.
+
+  - ![Tailwind CSS](https://tse1.mm.bing.net/th?id=OIP.FQR3B8ppNjvaw4XFHiZyBAHaEK&pid=Api&P=0&w=300&h=300) Tailwind CSS  
+    A utility-first CSS framework that provides low-level utility classes for rapid UI development, promoting consistent design.
+
+  - ![Framer Motion](https://www.framer.com/images/social/motion.png) Framer Motion  
+    A library for creating animations and transitions in React applications, enabling smoother interactions and UI enhancements.
+
+  - ![Daisy UI](https://tse3.mm.bing.net/th?id=OIP.ni9fqitlb-cKQKy6evmb8wHaDt&pid=Api&P=0&w=300&h=300) Daisy UI  
+    A component library that works with Tailwind CSS, providing pre-designed UI components that are easy to customize and implement.
 
 ## Features
 
