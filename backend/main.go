@@ -6,9 +6,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/gocolly/colly/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"github.com/gocolly/colly/v2" // Import Colly for web scraping
 )
 
 type LinkRequest struct {
@@ -52,11 +52,12 @@ func TestRoutes(app *fiber.App) {
 func GetLinkRoute(app *fiber.App) {
 	app.Post("/getLink", func(c *fiber.Ctx) error {
 		var linkReq LinkRequest
+		fmt.Println("Recived The Link Request")
 		err := c.BodyParser(&linkReq)
 		if err != nil {
 			return HandleError(err, c) // Pass the context to HandleError
 		}
-		
+
 		// Call the WebScrapeRoute function with the provided URL
 		WebScrapeRoute(linkReq.URL)
 
@@ -65,43 +66,60 @@ func GetLinkRoute(app *fiber.App) {
 }
 
 func WebScrapeRoute(url string) {
-	file, err := os.Create("WebScrape.csv")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
+    file, err := os.OpenFile("WebScrape.csv", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
 
-	writer := csv.NewWriter(file)
-	defer writer.Flush()
+    writer := csv.NewWriter(file)
+    defer writer.Flush()
 
-	header := []string{"Title", "Description", "Link To Article"}
-	if err := writer.Write(header); err != nil {
-		log.Fatal(err) // Handle CSV write errors
-	}
+    // Write the header only if the file is newly created
+    if stat, err := file.Stat(); err == nil && stat.Size() == 0 {
+        header := []string{"Title", "Description", "Link To Article", "Publication Date", "Category", "Image URL"}
+        if err := writer.Write(header); err != nil {
+            log.Fatal(err)
+        }
+    }
 
-	c := colly.NewCollector()
-	
-	c.OnHTML("item", func(e *colly.HTMLElement) {
-		title := e.ChildText("title")
-		description := e.ChildText("description")
-		link := e.ChildText("link")
-		row := []string{title, description, link}
-		if err := writer.Write(row); err != nil {
-			log.Println("Error writing to CSV:", err)
-		}
-	})
+    c := colly.NewCollector()
 
-	c.OnResponse(func(r *colly.Response) {
-		fmt.Println(r.StatusCode)
-	})
+    c.OnXML("//item", func(e *colly.XMLElement) {
+        fmt.Println("Found item") // Debugging output
+        title := e.ChildText("title")
+        description := e.ChildText("description")
+        link := e.ChildText("link")
+        pubDate := e.ChildText("pubDate")
+        category := e.ChildText("category")
+        
+        // For media:content, handle the namespace correctly
+        imageURL := e.ChildAttr("media:content", "url") // Use colon without escape if using OnXML
 
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL.String())
-	})
+        // Create a row with the extracted data
+        row := []string{title, description, link, pubDate, category, imageURL}
+        // fmt.Println("Row data:", row) // Log the row data before writing
+        
+        // Attempt to write to CSV and check for errors
+        if err := writer.Write(row); err != nil {
+            log.Println("Error writing to CSV:", err)
+        } else {
+            fmt.Println("Successfully wrote row:", row) // Confirm successful write
+        }
+    })
 
-	if err := c.Visit(url); err != nil {
-		log.Println("Error visiting URL:", err)
-	}
+    c.OnResponse(func(r *colly.Response) {
+        fmt.Println("Response received with status code:", r.StatusCode)
+    })
+
+    c.OnRequest(func(r *colly.Request) {
+        fmt.Println("Visiting:", r.URL.String())
+    })
+
+    // Visit the RSS feed URL
+    if err := c.Visit(url); err != nil {
+        log.Println("Error visiting URL:", err)
+    }
 }
 
 func HandleError(err error, c *fiber.Ctx) error {
