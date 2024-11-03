@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import SelectNews from './components/SelectNews';
 import Home from './components/Home';
+import DowloadData from './components/DowloadData';
 
 export default function App() {
   return (
@@ -8,6 +9,7 @@ export default function App() {
         <Routes>
           <Route path="/Home" element={<Home />} />
           <Route path="/SelectedNews" element={<SelectNews />} />
+          <Route path="/DownloadData" element={<DowloadData />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
