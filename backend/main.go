@@ -8,6 +8,7 @@ import (
 
 	"github.com/gocolly/colly/v2"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -26,8 +27,11 @@ func main() {
 
 	app := fiber.New()
 
-	// set up cors
-	SetUpCORS(app)
+	// Setting Up CORS to allow all origins
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowMethods: "GET,POST,PATCH,PUT,DELETE",
+	}))
 
 	TestRoutes(app)
 	GetLinkRoute(app)
@@ -67,7 +71,7 @@ func GetLinkRoute(app *fiber.App) {
 }
 
 func WebScrapeRoute(url string) error {
-	file, err := os.OpenFile(csvFilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	file, err := os.OpenFile(csvFilePath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return err
 	}
@@ -76,11 +80,10 @@ func WebScrapeRoute(url string) error {
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
 
-	if stat, err := file.Stat(); err == nil && stat.Size() == 0 {
-		header := []string{"Title", "Description", "Link To Article", "Publication Date", "Category", "Image URL"}
-		if err := writer.Write(header); err != nil {
-			return err
-		}
+	// Write header
+	header := []string{"Title", "Description", "Link To Article", "Publication Date", "Category", "Image URL"}
+	if err := writer.Write(header); err != nil {
+		return err
 	}
 
 	c := colly.NewCollector()
@@ -96,8 +99,6 @@ func WebScrapeRoute(url string) error {
 		row := []string{title, description, link, pubDate, category, imageURL}
 		if err := writer.Write(row); err != nil {
 			log.Println("Error writing to CSV:", err)
-		} else {
-			fmt.Println("Successfully wrote row:", row)
 		}
 	})
 
@@ -113,15 +114,6 @@ func WebScrapeRoute(url string) error {
 		return err
 	}
 	return nil
-}
-
-func SetUpCORS(app *fiber.App) {
-	app.Use(func(c *fiber.Ctx) error {
-		c.Set("Access-Control-Allow-Origin", "*")
-		c.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-		c.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		return c.Next()
-	})
 }
 
 func HandleError(err error, c *fiber.Ctx) error {

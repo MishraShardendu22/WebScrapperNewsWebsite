@@ -59,11 +59,25 @@ const SelectNews = () => {
       const response = await axios.post("http://127.0.0.1:3000/getLink", {
         url: `https://www.thehindu.com/${selectedGenre}/feeder/default.rss`,
       });
-      console.log("Response received:", response.data);
+      
+      const csvData = response.data; // Assuming this is your CSV data
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'data.csv'); // Set the desired file name
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Error fetching data:", err);
     }
   };
+  
 
   const handleGenreSelect = (genre: string) => {
     setSelectedGenre(genre);
