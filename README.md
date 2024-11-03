@@ -10,9 +10,9 @@ I created a web scraping website that scrapes a news website and returns live ne
 
 ## Tech Stack
 
-- **Backend**: <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg" alt="Go" height="40" width="40"/> Go
-- **Framework**: <img src="https://tse1.mm.bing.net/th?id=OIP.Vwna0ypKn1ac1HXlsYW-IwHaCx&pid=Api&P=0&w=300&h=300" alt="Fiber" height="40" width="40"/> Fiber
-- **Web Scraping**: <img src="https://tse4.mm.bing.net/th?id=OIP.6j1KmGsbcW28--qeX-KXJAHaDt&pid=Api&P=0&w=300&h=300" alt="Colly" height="40" width="40"/> Colly
+- **Backend**: <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg" alt="Go" height="40" width="80"/> Go
+- **Framework**: <img src="https://tse1.mm.bing.net/th?id=OIP.Vwna0ypKn1ac1HXlsYW-IwHaCx&pid=Api&P=0&w=300&h=300" alt="Fiber" height="40" width="80"/> Fiber
+- **Web Scraping**: <img src="https://tse4.mm.bing.net/th?id=OIP.6j1KmGsbcW28--qeX-KXJAHaDt&pid=Api&P=0&w=300&h=300" alt="Colly" height="40" width="80"/> Colly
 - **Frontend**: 
   - <img src="https://tse3.mm.bing.net/th?id=OIP.2IYTCEBU784bBDw45iiHzwHaD4&pid=Api&P=0&h=180" alt="Shadcn" height="40" width="40"/> Shadcn 
   - <img src="https://tse1.mm.bing.net/th?id=OIP.FQR3B8ppNjvaw4XFHiZyBAHaEK&pid=Api&P=0&w=300&h=300" alt="Tailwind CSS" height="40" width="40"/> Tailwind CSS
