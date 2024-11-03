@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Routes, Route, Navigate } from 'react-router-dom';
-import SelectNews from './components/ui/SelectNews';
+import { Routes, Route } from 'react-router-dom';
+import SelectNews from './components/SelectNews';
+import Home from './components/Home';
 
 export default function App() {
   return (
-    <header>
+    <div>
       <Routes>
-        <Route path="/SelectNews" element={<SelectNews />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/SelectedNews" element={<SelectNews />} />
+        <Route path="*" element={<Home />} />
       </Routes>
-    </header>
+    </div>
   );
 }
