@@ -41,3 +41,6 @@ I created a web scraping website that scrapes a news website and returns live ne
 ## Future Ideas
 
 - Make an ML Model to create an AI/ML project using the data!
+
+
+### Special Thanks to [The Hindu](https://www.thehindu.com/)
