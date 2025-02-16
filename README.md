@@ -26,9 +26,6 @@ I created a web scraping website that scrapes a news website and returns live ne
   - <img src="https://tse1.mm.bing.net/th?id=OIP.FQR3B8ppNjvaw4XFHiZyBAHaEK&pid=Api&P=0&w=300&h=300" alt="Tailwind CSS" height="40" width="80"/> Tailwind CSS  
     A utility-first CSS framework that provides low-level utility classes for rapid UI development, promoting consistent design.
 
-  - <img src="https://www.framer.com/images/social/motion.png" alt="Framer Motion" height="40" width="80"/> Framer Motion  
-    A library for creating animations and transitions in React applications, enabling smoother interactions and UI enhancements.
-
   - <img src="https://tse3.mm.bing.net/th?id=OIP.ni9fqitlb-cKQKy6evmb8wHaDt&pid=Api&P=0&w=300&h=300" alt="Daisy UI" height="40" width="80"/> Daisy UI  
     A component library that works with Tailwind CSS, providing pre-designed UI components that are easy to customize and implement.
 
